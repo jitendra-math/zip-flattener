@@ -1,6 +1,6 @@
 <script>
     import Dropzone from '$lib/components/Dropzone.svelte';
-    import '../../app.css'; // Tailwind import
+    import '../app.css'; // Tailwind import
 </script>
 
 <svelte:head>
