@@ -3,7 +3,7 @@
     
     let isDragging = false;
     let processing = false;
-    let status = ''; // 'success', 'error', or ''
+    let status = '';
 
     const handleFile = async (file) => {
         if (!file.name.endsWith('.zip')) {
@@ -35,16 +35,27 @@
         const file = e.target.files[0];
         if (file) handleFile(file);
     };
+
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            document.getElementById('file-upload').click();
+        }
+    };
 </script>
 
 <div 
+    role="button"
+    tabindex="0"
+    aria-label="Upload ZIP file"
     class="relative group w-full max-w-2xl mx-auto p-12 border-2 border-dashed rounded-3xl transition-all duration-300 flex flex-col items-center justify-center
     {isDragging ? 'border-blue-500 bg-blue-50/50 scale-[1.02]' : 'border-gray-200 bg-white hover:border-gray-300'}"
     on:dragover|preventDefault={() => isDragging = true}
     on:dragleave={() => isDragging = false}
     on:drop|preventDefault={onDrop}
+    on:keydown={handleKeyDown}
 >
     <input 
+        id="file-upload"
         type="file" 
         accept=".zip" 
         class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
@@ -75,5 +86,8 @@
 </div>
 
 <style>
-    /* Premium glass-morphism effects could go here if needed */
+    div:focus-visible {
+        outline: 2px solid #3b82f6;
+        outline-offset: 4px;
+    }
 </style>
